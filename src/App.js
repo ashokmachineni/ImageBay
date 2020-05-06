@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import imag from "./imag";
+import Shok from "./Shok";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Search from "./Search";
 
 function App() {
+  const [term, setTerm] = useState("");
+  const [shares, setShares] = useState([]);
+  const [isloading, setIsloading] = useState(true);
+
+  useEffect(() => {
+    fetch(
+      `https://pixabay.com/api/?key=5656625-37a8f718e7810a718141ce724&q=${term}&image_type=photo&pretty=true`
+    )
+      .then(res => res.json())
+      .then(data => {
+        setShares(data.hits);
+        setIsloading(false);
+      });
+  }, [term]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Search searchText={text => setTerm(text)} />
+      <br />
+      <br />
+      <div className="card-main">
+        {shares.map(share => (
+          <Shok key={share.id} share={share} />
+        ))}
+      </div>
     </div>
   );
 }
