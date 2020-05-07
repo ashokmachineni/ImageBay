@@ -4,11 +4,19 @@ import imag from "./imag";
 import Shok from "./Shok";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Search from "./Search";
+import { Button, Paper, Switch } from "@material-ui/core";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 function App() {
   const [term, setTerm] = useState("");
   const [shares, setShares] = useState([]);
   const [isloading, setIsloading] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
+  const theme = createMuiTheme({
+    palette: {
+      type: darkMode ? "dark" : "light"
+    }
+  });
 
   useEffect(() => {
     fetch(
@@ -21,16 +29,25 @@ function App() {
       });
   }, [term]);
   return (
-    <div>
-      <Search searchText={text => setTerm(text)} />
-      <br />
-      <br />
-      <div className="card-main">
-        {shares.map(share => (
-          <Shok key={share.id} share={share} />
-        ))}
-      </div>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Paper>
+        <Search searchText={text => setTerm(text)} />
+        <br />
+        <h4>
+          {" "}
+          Switch Theme(Light or Dark Mode) :{" "}
+          <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+        </h4>
+
+        <br />
+
+        <div className="card-main">
+          {shares.map(share => (
+            <Shok key={share.id} share={share} />
+          ))}
+        </div>
+      </Paper>
+    </ThemeProvider>
   );
 }
 
