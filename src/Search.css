@@ -6,3 +6,21 @@
     width: 80%;
     background: #f1f1f1;
 }
+
+.jumbotron {
+    background-color: #5ca3a8;
+    color: #fff;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.brand-icon {
+    font-size: 100px;
+}
+
+h1 {
+    font-family: "Carter One", cursive;
+    color: red;
+    font-weight: 200;
+    text-shadow: 2px 2px #dde191;
+}

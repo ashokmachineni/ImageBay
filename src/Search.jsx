@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "./Search.css";
+import picLogo from "./imgs.png";
 
 function Search({ searchText }) {
   const [text, setText] = useState("");
@@ -7,25 +9,25 @@ function Search({ searchText }) {
     searchText(text);
   };
   return (
-    <div>
-      <nav className="navbar navbar-light bg-light justify-content-between">
-        <a className="navbar-brand">Wait for Name</a>
-        <form onSubmit={onSubmit} className="form-inline">
+    <div className="jumbotron">
+      <h1 className="display-1">
+        <img src={picLogo} className="brand-icon" />
+        ImageBay
+      </h1>
+      <div className="input-group w-50 mx-auto">
+        <form onSubmit={onSubmit} className="form-inline w-50 mx-auto">
           <input
             onChange={e => setText(e.target.value)}
-            className="form-control mr-sm-2"
+            className="form-control"
             type="search"
-            placeholder="Search"
+            placeholder="Search Images..."
             aria-label="Search"
           />
-          <button
-            className="btn btn-outline-success my-2 my-sm-0"
-            type="submit"
-          >
+          <button className="btn btn-dark my-2 my-sm-0" type="submit">
             Search
           </button>
         </form>
-      </nav>
+      </div>
     </div>
   );
 }
